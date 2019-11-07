@@ -39,30 +39,37 @@ class Node {
   }
 
   static removeLoop(node) {
-    let looped = detectLoop(node);
+    let looped = Node.detectLoop(node);
     if (!looped) return node;
 
     let ptr1 = looped;
-    let ptr2 = looped;
+    let ptr2 = node
+    while(ptr1 != ptr2) {
+      ptr1 = ptr1.next
+      ptr2 = ptr2.next
+    }
+
+    ptr1.next = null
+    return node;
   }
 
   static detectLoop(node) {
     let slow = node;
-    let fast = node.next;
-    while (slow && fast) {
-      console.log(slow.data, fast.data);
+    let fast = node;
+    while (fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+
       if (slow == fast) {
         break;
       }
-      slow = slow.next;
-      fast = fast.next.next;
     }
 
     if (slow == fast) {
-      return true;
+      return slow;
     }
 
-    return -1;
+    return false
   }
 
   static insertRear(node, value) {
@@ -245,6 +252,23 @@ class LinkedList {
   head = null;
   constructor(node) {
     this.head = node;
+  }
+
+  add(data) {
+    let node = new Node(data);
+    node.next = this.head;
+    this.head = node;
+  }
+
+  isEmpty() {
+    return !this.head;
+  }
+
+  removeFirst() {
+    if (!this.head) return null;
+    let node = this.head;
+    this.head = this.head.next;
+    return node;
   }
 
   static createRandom(n, step = 1) {

@@ -101,127 +101,127 @@ class Node {
 		return this._locate2(this, value);
 	}
 	_locate2(node, value) {
-		if (!node) return null
-		if(node.value == value) return node;
-		if(value < node.value) return _locate2(node.left, value)
+		if (!node) return null;
+		if (node.value == value) return node;
+		if (value < node.value) return _locate2(node.left, value);
 
-		return _locate2(node.right, value)
+		return _locate2(node.right, value);
 	}
 	remove(value) {
-		this._remove(this, value)
+		this._remove(this, value);
 		return this;
 	}
 	_remove(node, value) {
-		if (!node) return null
+		if (!node) return null;
 		if (node.value == value) {
-			if(!node.left) return node.right
-			if(!node.right) return node.left
-			node.left = this._lift(node.left, node)
+			if (!node.left) return node.right;
+			if (!node.right) return node.left;
+			node.left = this._lift(node.left, node);
 			return node;
 		} else {
 			if (value < node.value) {
-				node.left = this._remove(node.left, value)
+				node.left = this._remove(node.left, value);
 			} else {
-				node.right = this._remove(node.right, value)
+				node.right = this._remove(node.right, value);
 			}
-			return node
+			return node;
 		}
 	}
 
 	_lift(node, toRemove) {
-		if(!node.right) {
-			toRemove.value = node.value
-			return node.left
-		} 
+		if (!node.right) {
+			toRemove.value = node.value;
+			return node.left;
+		}
 
-		node.right = this._lift(node.right, toRemove)
-		return node
+		node.right = this._lift(node.right, toRemove);
+		return node;
 	}
 
 	print() {
-		this._print(this, 0)
+		this._print(this, 0);
 	}
 	_print(node, spaces) {
-		if(!node) return;
-		spaces += 2
-		this._print(node.right, spaces)
+		if (!node) return;
+		spaces += 2;
+		this._print(node.right, spaces);
 
-		let msg = Array.from(new Array(spaces - 2), () => " ").join("")
-		console.log(msg + node.value)
-		this._print(node.left, spaces)
+		let msg = Array.from(new Array(spaces - 2), () => " ").join("");
+		console.log(msg + node.value);
+		this._print(node.left, spaces);
 	}
 
-	preorder(node) {
-		if (!node ) return
-		console.log(node.value)
-		this.preorder(node.left)
-		this.preorder(node.right)
+	preorder(node, acc = []) {
+		if (!node) return;
+		acc.push(node.value);
+		this.preorder(node.left, acc);
+		this.preorder(node.right, acc);
+		return acc;
 	}
-	inorder(node) {
-		if (!node ) return
-		this.inorder(node.left)
-		console.log(node.value)
-		this.inorder(node.right)
+	inorder(node, acc = []) {
+		if (!node) return;
+		this.inorder(node.left, acc);
+		acc.push(node.value);
+		this.inorder(node.right, acc);
+		return acc;
 	}
-	postorder(node) {
-		if (!node ) return
-		this.postorder(node.left)
-		this.postorder(node.right)
-		console.log(node.value)
+	postorder(node = [], acc = []) {
+		if (!node) return;
+		this.postorder(node.left, acc);
+		this.postorder(node.right, acc);
+		acc.push(node.value);
+		return acc;
 	}
 	reverseInorder(node) {
-		if(!node) return
-		this.reverseInorder(node.right)
-		console.log(node.value)
-		this.reverseInorder(node.left)
+		if (!node) return;
+		this.reverseInorder(node.right);
+		console.log(node.value);
+		this.reverseInorder(node.left);
 	}
 	minDepth(node) {
-		if(!node.left && !node.right) return 0
-		if(!node.left) return 1 + this.minDepth(node.right)
-		if(!node.right) return 1 + this.minDepth(node.left)
+		if (!node.left && !node.right) return 0;
+		if (!node.left) return 1 + this.minDepth(node.right);
+		if (!node.right) return 1 + this.minDepth(node.left);
 
-		return Math.min(this.minDepth(node.left), this.minDepth(node.right))
+		return Math.min(this.minDepth(node.left), this.minDepth(node.right));
 	}
 	bfs() {
 		let queue = [this];
-		while(queue.length) {
-			let next = queue.pop()
-			if(next) {
-				console.log(next.value)
-				queue.unshift(next.left)
-				queue.unshift(next.right)
+		while (queue.length) {
+			let next = queue.pop();
+			if (next) {
+				console.log(next.value);
+				queue.unshift(next.left);
+				queue.unshift(next.right);
 			}
 		}
 	}
 	printLevel(node, level, currentLevel = 0) {
-		if(!node || currentLevel > level) return;
-		if(currentLevel == level) {
-			console.log(node.value)
-			return
+		if (!node || currentLevel > level) return;
+		if (currentLevel == level) {
+			console.log(node.value);
+			return;
 		}
 
-		this.printLevel(node.left, level, currentLevel + 1)
-		this.printLevel(node.right, level, currentLevel + 1)
+		this.printLevel(node.left, level, currentLevel + 1);
+		this.printLevel(node.right, level, currentLevel + 1);
 	}
 
-	printLevelIter(level) {
-
-	}
+	printLevelIter(level) {}
 
 	maxPathSum() {
-		let max = Number.MIN_SAFE_INTEGER
-		maxPathDown(this)
+		let max = Number.MIN_SAFE_INTEGER;
+		maxPathDown(this);
 		function maxPathDown(node) {
-			if(!node) return 0
+			if (!node) return 0;
 			let left = Math.max(0, maxPathDown(node.left));
 			let right = Math.max(0, maxPathDown(node.right));
-			max = Math.max(max, left + right + node.value)
-			return Math.max(left, right) + node.value
+			max = Math.max(max, left + right + node.value);
+			return Math.max(left, right) + node.value;
 		}
 
 		return max;
 	}
-
 }
 
 module.exports = {
