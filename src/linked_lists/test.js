@@ -1,4 +1,4 @@
-const { Node, LinkedList } = require("./structure/singly");
+const { Node, LinkedList } = require("./");
 const LL = LinkedList;
 
 describe("LinkedLists", () => {
