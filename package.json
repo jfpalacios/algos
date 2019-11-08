@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch './src/**/test.js' --require index.js"
+    "test": "mocha --reporter min --watch './src/**/test.js' --require index.js"
   },
   "author": "",
   "license": "ISC",

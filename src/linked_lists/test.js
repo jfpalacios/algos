@@ -129,36 +129,36 @@ describe("LinkedLists", () => {
 
   describe("Algos", () => {
     it("Nth to last iterative", () => {
-      let ll = LL.createNumber(123456789)
-      expect(Node.nthToLast2(ll.head, 0).data).to.equal(9)
-      expect(Node.nthToLast2(ll.head, 1).data).to.equal(8)
-      expect(Node.nthToLast2(ll.head, 2).data).to.equal(7)
-      expect(Node.nthToLast2(ll.head, 3).data).to.equal(6)
-      expect(Node.nthToLast2(ll.head, 8).data).to.equal(1)
+      let ll = LL.createNumber(123456789);
+      expect(Node.nthToLast2(ll.head, 0).data).to.equal(9);
+      expect(Node.nthToLast2(ll.head, 1).data).to.equal(8);
+      expect(Node.nthToLast2(ll.head, 2).data).to.equal(7);
+      expect(Node.nthToLast2(ll.head, 3).data).to.equal(6);
+      expect(Node.nthToLast2(ll.head, 8).data).to.equal(1);
     });
 
     it("Nth to last recusrive", () => {
-      let ll = LL.createNumber(123456789)
-      expect(Node.nthToLast(ll.head, 0).data).to.equal(9)
-      expect(Node.nthToLast(ll.head, 1).data).to.equal(8)
-      expect(Node.nthToLast(ll.head, 2).data).to.equal(7)
-      expect(Node.nthToLast(ll.head, 3).data).to.equal(6)
-      expect(Node.nthToLast2(ll.head, 8).data).to.equal(1)
+      let ll = LL.createNumber(123456789);
+      expect(Node.nthToLast(ll.head, 0).data).to.equal(9);
+      expect(Node.nthToLast(ll.head, 1).data).to.equal(8);
+      expect(Node.nthToLast(ll.head, 2).data).to.equal(7);
+      expect(Node.nthToLast(ll.head, 3).data).to.equal(6);
+      expect(Node.nthToLast2(ll.head, 8).data).to.equal(1);
     });
 
     it("Detect and remove Loop", () => {
-      let ll = LL.createNumber(123456789)
-      expect(Node.detectLoop(ll.head)).to.be.false
+      let ll = LL.createNumber(123456789);
+      expect(Node.detectLoop(ll.head)).to.be.false;
 
       // create loop
-      let last = Node.nthToLast(ll.head, 0)
-      last.next = Node.nthToLast(ll.head, 4) // 9 -> 5
-      expect(!!Node.detectLoop(ll.head)).to.be.true
+      let last = Node.nthToLast(ll.head, 0);
+      last.next = Node.nthToLast(ll.head, 4); // 9 -> 5
+      expect(!!Node.detectLoop(ll.head)).to.be.true;
 
       // remove loop
-      let fixedList = Node.removeLoop(ll.head)
-      expect(Node.detectLoop(fixedList)).to.be.false
-      expect(Node.nthToLast(fixedList, 0).next).to.be.null
+      let fixedList = Node.removeLoop(ll.head);
+      expect(Node.detectLoop(fixedList)).to.be.false;
+      expect(Node.nthToLast(fixedList, 0).next).to.be.null;
     });
   });
 });

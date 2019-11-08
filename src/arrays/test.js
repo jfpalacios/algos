@@ -1,4 +1,4 @@
-const { rotate90, setZeroes } = require("./index.js");
+const { rotate90, setZeroes, binarySearch } = require("./index.js");
 
 describe("Arrays", function() {
   it("rotate90 rotates nxn array 90 degrees", function() {
@@ -29,5 +29,12 @@ describe("Arrays", function() {
       [1, 0, 1, 0],
       [0, 0, 0, 0]
     ]);
+  });
+
+  it("binary search", () => {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    expect(binarySearch(arr, 5)).to.equal(4);
+    expect(binarySearch(arr, 10)).to.equal(9);
+    expect(binarySearch(arr, 0)).to.be.null;
   });
 });
