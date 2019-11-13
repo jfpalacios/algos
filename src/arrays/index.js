@@ -66,8 +66,20 @@ function binarySearch(arr, num) {
   return null;
 }
 
+function binarySearch2(arr, num, left, right) {
+  if (left > right) return null;
+
+  let mid = Math.floor(left + (right - left) / 2);
+  if (arr[mid] == num) return mid;
+  if (num > arr[mid]) return binarySearch2(arr, num, mid + 1, right);
+  if (num < arr[mid]) return binarySearch2(arr, num, left, mid - 1);
+
+  return null;
+}
+
 module.exports = {
   setZeroes,
   rotate90,
-  binarySearch
+  binarySearch,
+  binarySearch2
 };

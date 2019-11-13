@@ -15,4 +15,10 @@ describe("BST", function() {
 
 		expect(arr).to.deep.equal(arr2)
 	});
+
+	it("can detect proper BST", () => {
+		let pre = [43 , 15 ,8, 30, 20, 35, 60, 50, 82, 72];
+		expect(Node.canRepresentBST(pre)).to.be.true
+		// expect(Node.canRepresentBST([40 , 30 , 35 , 20 ,  80 , 100])).to.be.false
+	});
 });
