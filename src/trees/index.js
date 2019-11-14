@@ -1,3 +1,10 @@
+/*
+Full binary tree (proper binary tree):
+  every node other than the leaves has two children. 
+Complete binary tree: 
+  every level, except possibly the last, is completely filled
+  and all nodes are as far left as possible.
+*/
 class Node {
   value = null;
   left = null;
@@ -187,14 +194,17 @@ class Node {
   }
   bfs() {
     let queue = [this];
+    let results = []
     while (queue.length) {
       let next = queue.pop();
       if (next) {
-        console.log(next.value);
+        results.push(next.value)
         queue.unshift(next.left);
         queue.unshift(next.right);
       }
     }
+
+    return results
   }
   printLevel(node, level, currentLevel = 0) {
     if (!node || currentLevel > level) return;
@@ -246,6 +256,20 @@ class Node {
     }
 
     return true
+  }
+
+  isFullTree() {
+    return this._isFullTree(this)
+  }
+
+  _isFullTree(node) {
+    if(!node) return true
+    if(!node.left && !node.right) return true // leaf nodes are complete
+    if(node.left && node.right) {
+      return this._isFullTree(node.left) && this._isFullTree(node.right)
+    }
+
+    return false
   }
 }
 
