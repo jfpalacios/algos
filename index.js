@@ -6,6 +6,7 @@ Array.prototype.shuffle = function() {
     let index = Math.floor(Math.random() * (i + 1));
     [this[i], this[index]] = [this[index], this[i]]
   }
+  
   return this;
 };
 

@@ -1,4 +1,4 @@
-const { Node } = require("./");
+const { Node } = require("./index.js");
 
 describe("BST", function() {
   it("returns proper height", function() {

@@ -100,9 +100,59 @@ function bubbleSort(arr) {
   return arr;
 }
 
+function heapSort(arr, logging) {
+  function heapify(arr, n, i, logging) {
+    let largest = i;
+    let left = 2 * i + 1;
+    let right = 2 * i + 2;
+
+    if (logging) {
+      console.log(arr);
+      console.log(`i: (${i}) ${arr[i]}`);
+      console.log(`left (${left}) ${arr[left]}`);
+      console.log(`right (${right}) ${arr[right]}`);
+    }
+
+    if (left < n && arr[i] < arr[left]) {
+      logging && console.log(`Largest Left: ${arr[left]} > ${arr[i]}`);
+      largest = left;
+    }
+
+    if (right < n && arr[largest] < arr[right]) {
+      logging && console.log(`Largest Right: ${arr[right]} > ${arr[i]}`);
+      largest = right;
+    }
+
+    if (largest != i) {
+      logging && console.log("Pre swap", arr);
+      [arr[i], arr[largest]] = [arr[largest], arr[i]];
+      if (logging) {
+        console.log("Post swap", arr);
+        console.log("RECURSING i", largest);
+        console.log("-------");
+      }
+      heapify(arr, n, largest, logging);
+    }
+
+    logging && console.log("-------");
+  }
+
+  for (var i = Math.floor(arr.length / 2); i >= 0; i--) {
+    heapify(arr, arr.length, i);
+  }
+
+  for (var i = arr.length - 1; i > 0; i--) {
+    [arr[i], arr[0]] = [arr[0], arr[i]];
+    heapify(arr, i, 0);
+  }
+
+  return arr;
+}
+
 module.exports = {
   mergeSort,
   insertionSort,
   quicksort,
-  bubbleSort
+  bubbleSort,
+  heapSort
 };
