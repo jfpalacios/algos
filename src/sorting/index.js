@@ -113,7 +113,7 @@ function heapSort(arr, logging) {
       console.log(`right (${right}) ${arr[right]}`);
     }
 
-    if (left < n && arr[i] < arr[left]) {
+    if (left < n && arr[largest] < arr[left]) {
       logging && console.log(`Largest Left: ${arr[left]} > ${arr[i]}`);
       largest = left;
     }
