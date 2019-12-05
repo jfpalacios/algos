@@ -1,4 +1,5 @@
 const { Node } = require("./index.js");
+const { MaxHeap } = require("./heap");
 
 describe("BST", function() {
   it("returns proper height", function() {
