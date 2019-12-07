@@ -21,9 +21,7 @@ class Node {
 
   _height2(node) {
     if (!node) return -1;
-    return (
-      1 + Math.max(this._height2(node.left), this._height2(node.right))
-    );
+    return 1 + Math.max(this._height2(node.left), this._height2(node.right));
   }
 
   get height() {
@@ -39,9 +37,7 @@ class Node {
     } else if (!node.right) {
       return 1 + this._height(node.left);
     } else {
-      return (
-        1 + Math.max(this._height(node.left), this._height(node.right))
-      );
+      return 1 + Math.max(this._height(node.left), this._height(node.right));
     }
   }
 
@@ -150,10 +146,11 @@ class Node {
   }
   _print(node, spaces) {
     if (!node) return;
-    spaces += 2;
+    spaces += 4;
     this._print(node.right, spaces);
 
-    let msg = Array.from(new Array(spaces - 2), () => " ").join("");
+    let msg = Array.from(new Array(spaces - 2), () => ' ').join('');
+
     console.log(msg + node.value);
     this._print(node.left, spaces);
   }
@@ -185,26 +182,32 @@ class Node {
     console.log(node.value);
     this.reverseInorder(node.left);
   }
-  minDepth(node) {
-    if (!node.left && !node.right) return 0;
-    if (!node.left) return 1 + this.minDepth(node.right);
-    if (!node.right) return 1 + this.minDepth(node.left);
 
-    return Math.min(this.minDepth(node.left), this.minDepth(node.right));
+  minDepth(node) {
+    if (!node) return 0;
+
+    return 1 + Math.min(this.minDepth(node.left), this.minDepth(node.right));
   }
+
+  maxDepth(node) {
+    if (!node) return 0;
+
+    return 1 + Math.max(this.maxDepth(node.left), this.maxDepth(node.right));
+  }
+
   bfs() {
     let queue = [this];
-    let results = []
+    let results = [];
     while (queue.length) {
       let next = queue.pop();
       if (next) {
-        results.push(next.value)
+        results.push(next.value);
         queue.unshift(next.left);
         queue.unshift(next.right);
       }
     }
 
-    return results
+    return results;
   }
   printLevel(node, level, currentLevel = 0) {
     if (!node || currentLevel > level) return;
@@ -233,43 +236,46 @@ class Node {
     return max;
   }
 
-  /* Logic: after finding a larger value node than previous, 
-  * it means right node is being processed so 
-  * find largest number less than current and set as the min value
-  * No following number could be less than this min value in preorder BST
-  */
+  /* Logic: after finding a larger value node than previous,
+   * it means right node is being processed so
+   * find largest number less than current and set as the min value
+   * No following number could be less than this min value in preorder BST
+   */
   static canRepresentBST(pre) {
-    let stack = []
+    let stack = [];
     let min = Number.MIN_SAFE_INTEGER;
-    for(var i = 0; i < pre.length; i++) {
+    for (var i = 0; i < pre.length; i++) {
       if (pre[i] < min) {
-        return false
+        return false;
       }
 
-
       // processing right tree because value > previous
-      while(stack.length && stack[stack.length - 1] < pre[i]) {
-        min = stack.pop()
-      }   
+      while (stack.length && stack[stack.length - 1] < pre[i]) {
+        min = stack.pop();
+      }
 
-      stack.push(pre[i])
+      stack.push(pre[i]);
     }
 
-    return true
+    return true;
+  }
+
+  isBalancedTree() {
+    return this.maxDepth(this) - this.minDepth(this) <= 1;
   }
 
   isFullTree() {
-    return this._isFullTree(this)
+    return this._isFullTree(this);
   }
 
   _isFullTree(node) {
-    if(!node) return true
-    if(!node.left && !node.right) return true // leaf nodes are complete
-    if(node.left && node.right) {
-      return this._isFullTree(node.left) && this._isFullTree(node.right)
+    if (!node) return true;
+    if (!node.left && !node.right) return true; // leaf nodes are complete
+    if (node.left && node.right) {
+      return this._isFullTree(node.left) && this._isFullTree(node.right);
     }
 
-    return false
+    return false;
   }
 }
 

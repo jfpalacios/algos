@@ -23,8 +23,38 @@ class Stack {
   isEmpty(stack = this) {
     return !stack.top;
   }
+
+  size() {
+    let count = 0;
+    let node = this.top;
+    while (node) {
+      count++;
+      node = node.next;
+    }
+    return count;
+  }
+
+  peek() {
+    return this.top && this.top.data;
+  }
+
+  static sort(stack) {
+    let stack2 = new Stack();
+    while (!stack.isEmpty()) {
+      let node = stack.pop();
+
+      while (!stack2.isEmpty() && stack2.peek() < node) {
+        stack.push(stack2.pop());
+      }
+
+      stack2.push(node);
+    }
+
+    return stack2;
+  }
 }
 
+// Inefficient for duplicate min values
 class StackMin extends Stack {
   minStack = new Stack();
   push(data) {
@@ -78,22 +108,44 @@ class DoubleStack {
   }
 }
 
-class EfficientStackNode {
-  previous = 0;
-  data = 0;
-  constructor(data, previous) {
-    this.data = data;
-    this.previous = previous;
+// Lazily build the second stack
+class QueueWithStacks {
+  constructor() {
+    this.s1 = new Stack();
+    this.s2 = new Stack();
   }
-}
 
-class DoubleStackEfficient {
-  push(stackNum, value) {}
-  pop(stackNum) {}
+  size() {
+    return this.s1.size() + this.s2.size();
+  }
+
+  enqueue(value) {
+    this.s1.push(value);
+  }
+
+  peek() {
+    this._transferIfNeeded();
+    return this.s2.peek();
+  }
+
+  dequeue() {
+    this._transferIfNeeded();
+    return this.s2.pop();
+  }
+
+  _transferIfNeeded() {
+    if (!this.s2.isEmpty()) {
+      return this.s2.peek();
+    }
+    while (!this.s1.isEmpty()) {
+      this.s2.push(this.s1.pop());
+    }
+  }
 }
 
 module.exports = {
   Stack,
   StackMin,
-  DoubleStack
+  DoubleStack,
+  QueueWithStacks
 };

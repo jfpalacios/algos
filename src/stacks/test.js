@@ -1,10 +1,10 @@
-const { StackMin, DoubleStack } = require('./index.js');
+const { Stack, StackMin, DoubleStack, QueueWithStacks } = require('./index.js');
 
 describe('Stacks', function() {
   describe('Stack Min', function() {
-    it('functions as stack', function() {
+    it('Functions as a stack', function() {
       let stackMin = new StackMin();
-      stackMin.push(10);
+      stackMin.p;ush(10);
       stackMin.push(20);
       stackMin.push(5);
       stackMin.push(3);
@@ -18,7 +18,7 @@ describe('Stacks', function() {
       expect(stackMin.pop()).to.equal(20);
     });
 
-    it('tracks min value', function() {
+    it('Tracks min value', function() {
       let stackMin = new StackMin();
       stackMin.push(10);
       stackMin.push(3);
@@ -36,7 +36,7 @@ describe('Stacks', function() {
   });
 
   describe('DoubleStack', function() {
-    it('functions as stack', function() {
+    it('Functions as a stack', function() {
       let doubleStack = new DoubleStack();
       doubleStack.push(0, 5);
       doubleStack.push(0, 10);
@@ -52,6 +52,33 @@ describe('Stacks', function() {
       expect(doubleStack.pop(1)).to.equal(30);
       expect(doubleStack.pop(1)).to.equal(20);
       expect(doubleStack.pop(1)).to.be.null;
+    });
+  });
+
+  describe('QueueWithStacks', () => {
+    it('Works as a standard queue', () => {
+      let q = new QueueWithStacks();
+      q.enqueue(10);
+      q.enqueue(15);
+      q.enqueue(20);
+      expect(q.size()).to.equal(3);
+      expect(q.dequeue()).to.equal(10);
+      expect(q.dequeue()).to.equal(15);
+      expect(q.dequeue()).to.equal(20);
+      expect(q.dequeue()).to.be.null;
+    });
+  });
+
+  describe('StackSort', () => {
+    it('Sorts stacks ascending', () => {
+      let stack = new Stack();
+      [10, 15, 90, 0, -30].forEach(num => stack.push(num));
+      let sorted = Stack.sort(stack);
+      expect(sorted.pop()).to.equal(-30);
+      expect(sorted.pop()).to.equal(0);
+      expect(sorted.pop()).to.equal(10);
+      expect(sorted.pop()).to.equal(15);
+      expect(sorted.pop()).to.equal(90);
     });
   });
 });
