@@ -4,7 +4,7 @@ describe('Stacks', function() {
   describe('Stack Min', function() {
     it('Functions as a stack', function() {
       let stackMin = new StackMin();
-      stackMin.p;ush(10);
+      stackMin.push(10);
       stackMin.push(20);
       stackMin.push(5);
       stackMin.push(3);
