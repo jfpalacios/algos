@@ -1,5 +1,3 @@
-const { logBit } = require('./utils.js');
-
 function updateBits(bit1, bit2, i, j) {
   // All 1's
   let allOnes = ~0;
@@ -17,7 +15,7 @@ function updateBits(bit1, bit2, i, j) {
   let maskedN = bit1 & mask;
 
   let shiftedM = bit2 << i;
-  
+
   return maskedN | shiftedM;
 }
 

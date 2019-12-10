@@ -1,5 +1,3 @@
-const { logBit } = require('./utils.js');
-
 // start inclusive, end exclusive
 function clearBits(bit, start, end) {
   let allOnes = ~0;
